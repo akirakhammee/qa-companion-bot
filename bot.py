@@ -55,7 +55,10 @@ def check_discord_notifications():
     api_url = f"{OPENPROJECT_URL}/api/v3/work_packages?filters={quote(filters)}&sortBy={quote(sort_by)}&pageSize=10"
     
     auth = requests.auth.HTTPBasicAuth('apikey', API_TOKEN)
-    headers = {"Accept": "application/json"}
+    headers = {
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
     
     try:
         res = requests.get(api_url, auth=auth, headers=headers, timeout=10)
