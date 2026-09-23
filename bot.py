@@ -6,6 +6,7 @@ import datetime
 from urllib.parse import quote
 from threading import Thread
 from flask import Flask
+import cloudscraper
 
 app = Flask(__name__)
 
@@ -60,8 +61,10 @@ def check_discord_notifications():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
     
+    scraper = cloudscraper.create_scraper()
+    
     try:
-        res = requests.get(api_url, auth=auth, headers=headers, timeout=10)
+        res = scraper.get(api_url, auth=auth, headers=headers, timeout=10)
         res.raise_for_status()
         data = res.json()
     except Exception as e:
